@@ -2,7 +2,7 @@
 
 from flask import Flask
 from flask_restx import Api
-from app.routes.board_routes import boards_ns, notes_ns
+from app.routes.board_routes import boards_ns, notes_ns, categories_ns
 
 
 def create_app():
@@ -13,5 +13,6 @@ def create_app():
 
     api.add_namespace(boards_ns)
     api.add_namespace(notes_ns)
+    api.add_namespace(categories_ns)
 
     return app
