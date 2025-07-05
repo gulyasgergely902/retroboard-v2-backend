@@ -1,3 +1,5 @@
+"""Database models"""
+
 from typing import List
 
 from sqlalchemy import ForeignKey, String, JSON

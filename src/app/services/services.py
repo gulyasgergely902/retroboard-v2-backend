@@ -58,7 +58,7 @@ def get_notes(board_id: int) -> tuple[list[dict[str, str]], int]:
     return notes_json, 200
 
 
-def add_note(note_description: str, note_category: str, note_tags: str, note_board_id: int)  -> tuple[Optional[dict[str, str]], Optional[dict[str, str]], int]:
+def add_note(note_description: str, note_category: str, note_tags: str, note_board_id: int) -> tuple[Optional[dict[str, str]], Optional[dict[str, str]], int]:
     """Add a new note"""
     with db.get_session() as session:
         try:
