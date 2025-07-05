@@ -23,7 +23,8 @@ class Board(Base):
     )
 
     def __repr__(self) -> str:
-        return f"Board(id={self.id!r}, name={self.name!r}, notes={self.notes!r})"
+        return f"Board(id={self.id!r}, name={self.name!r}," \
+            f"notes={self.notes!r})"
 
 
 class Note(Base):
@@ -40,7 +41,8 @@ class Note(Base):
     board: Mapped["Board"] = relationship(back_populates="notes")
 
     def __repr__(self) -> str:
-        return f"Note(id={self.id!r}, description={self.description!r}, category={self.category!r}, tags={self.tags!r})"
+        return f"Note(id={self.id!r}, description={self.description!r}," \
+            f"category={self.category!r}, tags={self.tags!r})"
 
 
 class Category(Base):

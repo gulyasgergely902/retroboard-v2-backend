@@ -18,6 +18,9 @@ ENV/
 env.bak/
 venv.bak/
 
+# Static frontend files
+static/
+
 # Database files
 *.sqlite3
 *.sqlite
