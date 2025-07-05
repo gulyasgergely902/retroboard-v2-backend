@@ -3,7 +3,6 @@
 
 class Config:
     """Base configuration with common settings."""
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class DevelopmentConfig(Config):

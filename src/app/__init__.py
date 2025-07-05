@@ -15,7 +15,7 @@ def create_app():
     app = Flask(__name__, static_folder=static_dir, static_url_path='')
 
     config_class = None
-    env = os.environ.get("FLASK_ENV", "development")
+    env = os.environ.get("FLASK_ENV", "production")
     if env == "production":
         config_class = ProductionConfig
     else:

@@ -24,9 +24,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY --from=builder /app/src/ ./src
 
-EXPOSE 5000
-
 WORKDIR /app/src
 
-CMD ["python", "run.py"]
-
+CMD ["gunicorn", "-w", "1", "-b", "0.0.0.0:8000", "run:app"]
