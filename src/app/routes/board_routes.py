@@ -1,7 +1,7 @@
 """Routes for RetroBoard Server"""
 
 from flask_restx import Namespace, Resource, reqparse, fields
-from flask import request
+from flask import request, send_from_directory
 from app.services.services import get_boards, add_board, remove_board
 from app.services.services import get_notes, add_note, remove_note, modify_note_category, modify_note_tags
 from app.services.services import get_categories, add_category, remove_category
@@ -153,3 +153,16 @@ class Categories(Resource):
         args = parser.parse_args()
         result, error, status = remove_category(args['category_id'])
         return result or error, status
+
+
+def register_static_routes(app):
+    """Register static routes for serving static files"""
+    @app.route('/')
+    def serve_index():
+        """Serve the index page"""
+        return send_from_directory(app.static_folder, 'index.html')
+
+    @app.route('/<path:path>')
+    def serve_static_file(path):
+        """Server static files"""
+        return send_from_directory(app.static_folder, path)
