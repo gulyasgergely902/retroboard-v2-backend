@@ -10,24 +10,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Unit test / coverage
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
-cover/
-
-# Flask:
-instance/
-
 # Environments
 .venv
 env/
@@ -35,3 +17,10 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+
+# Database files
+*.sqlite3
+*.sqlite
+
+# Miscellaneous
+*.DS_Store
