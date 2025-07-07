@@ -1,24 +1,47 @@
 <template>
-  <masonry-wall :items="items" :ssr-columns="1" :column-width="300" :gap="16">
-    <template #default="{ item, index }">
-      <div class="bg-sky-100 rounded-xl p-4">
-        <span>{{ item }}</span>
-      </div>
-    </template>
-  </masonry-wall>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+    <BoardCard
+      v-if="loading"
+      v-for="n in 10"
+      class="blur-sm grayscale brightness-150"
+      title="Boards are loading..."
+    />
+    <BoardCard v-else v-for="board in boards" :title="board.name" />
+  </div>
 </template>
 
-<script setup>
-  import MasonryWall from '@yeger/vue-masonry-wall'
-  const items = [
-    "Cras sagittis, tellus sit amet sagittis rhoncus, metus lectus fringilla enim, a consectetur ante lorem a tortor. Maecenas tincidunt nec augue a aliquet.",
-    "Nunc sit amet nunc rhoncus.",
-    "Nam nec arcu est. Nullam pulvinar ligula ac massa consequat, a tincidunt est condimentum. Aliquam egestas vehicula risus, a interdum diam lobortis ultrices. Phasellus eget pretium quam.",
-    "Etiam dolor lacus, sodales semper porta sit amet, gida nec tortor.",
-    "Nulla lobortis, felis eleifend tempor maximus, leo mi sagittis sem, a eleifend leo orci eu ex. Phasellus fringilla quam quis tempor tempor. Sed sit amet enim ut dui interdum semper.",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida eleifend libero, ac dapibus urna posuere eu. Ut id eros facilisis turpis consequat luctus a sed metus. Cras sagittis, tellus sit amet sagittis rhoncus, metus lectus fringilla enim, a consectetur ante lorem a tortor.",
-    "Lorem ipsum.",
-    "Nulla lobortis, felis eleifend tempor maximus, leo mi sagittis sem, a eleifend leo orci eu ex.",
-    "Cras sagittis, tellus sit amet sagitt  is rhoncus, metus lectus fringilla enim, a consectetur ante lorem a tortor."
-  ]
+<script setup lang="ts">
+import BoardCard from '@/components/BoardCard.vue'
+import { onMounted, ref } from 'vue'
+
+interface Board {
+  id: number
+  name: string
+}
+
+const boards = ref<Board[]>([])
+const loading = ref(false)
+
+onMounted(async () => {
+  console.log('Mounted')
+  try {
+    console.log('Fetching boards...')
+    loading.value = true
+    const response = await fetch('/api/boards')
+    console.log('Status:', response.status)
+
+    if (!response.ok) {
+      const resp = await response.text()
+      console.error('Error response:', resp)
+      throw new Error('Network response was not ok: ' + response.statusText)
+    }
+
+    const returnData = (await response.json()) as Board[]
+    boards.value = returnData
+  } catch (err) {
+    console.error('Error fetching boards:', err)
+  } finally {
+    loading.value = false
+  }
+})
 </script>
