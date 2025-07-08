@@ -6,5 +6,6 @@
   </div>
 </template>
 <script setup lang="ts">
-defineProps(['title'])
+import { defineProps } from 'vue'
+defineProps(['title', 'boardId'])
 </script>

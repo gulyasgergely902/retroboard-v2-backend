@@ -10,7 +10,7 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/board',
+      path: '/board/:id',
       name: 'board',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route

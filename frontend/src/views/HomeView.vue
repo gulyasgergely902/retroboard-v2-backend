@@ -6,7 +6,14 @@
       class="blur-sm grayscale brightness-150"
       title="Boards are loading..."
     />
-    <BoardCard v-else v-for="board in boards" :title="board.name" />
+    <RouterLink
+      v-else
+      v-for="board in boards"
+      :to="{ name: 'board', params: { id: String(board.id) } }"
+    >
+      <BoardCard v-if="board.id" :title="board.name" />
+      <BoardCard v-else class="grayscale" title="Board data is missing" />
+    </RouterLink>
   </div>
 </template>
 
@@ -23,7 +30,6 @@ const boards = ref<Board[]>([])
 const loading = ref(false)
 
 onMounted(async () => {
-  console.log('Mounted')
   try {
     console.log('Fetching boards...')
     loading.value = true
