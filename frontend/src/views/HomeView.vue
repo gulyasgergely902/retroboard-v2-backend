@@ -31,10 +31,8 @@ const loading = ref(false)
 
 onMounted(async () => {
   try {
-    console.log('Fetching boards...')
     loading.value = true
     const response = await fetch('/api/boards')
-    console.log('Status:', response.status)
 
     if (!response.ok) {
       const resp = await response.text()

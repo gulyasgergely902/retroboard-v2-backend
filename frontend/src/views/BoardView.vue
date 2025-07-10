@@ -29,7 +29,6 @@ const selectedCategory = ref<number | null>(null)
 
 onMounted(async () => {
   try {
-    console.log('Fetching notes & categories...')
     loading.value = true
     const notes_response = await fetch('/api/notes?board_id=' + boardId)
     const cateries_response = await fetch('/api/categories?board_id=' + boardId)
@@ -65,7 +64,6 @@ const filteredNotes = computed(() => {
 })
 
 function handleSelection(index: number) {
-  console.log('Selected:', index)
   selectedCategory.value = index
 }
 </script>
