@@ -6,7 +6,7 @@
         class="absolute top-1 bottom-1 left-1 bg-white rounded-full shadow transition-all h-8 duration-300 ease-in-out"
         :style="{
           width: `${100 / categories.length}%`,
-          transform: `translateX(${selectedIndex * 100}%)`,
+          transform: `translateX(${selectedPosition * 100}%)`,
         }"
       ></div>
 
@@ -14,8 +14,8 @@
         v-for="(category, index) in categories"
         :key="category.id"
         class="relative z-10 flex-1 text-center rounded-full h-10 flex items-center justify-center font-semibold transition-colors duration-200"
-        :class="selectedIndex === index ? 'text-black' : 'text-gray-500'"
-        @click="selectOption(index)"
+        :class="selectedIndex === category.id ? 'text-black' : 'text-gray-500'"
+        @click="selectOption(category.id)"
       >
         {{ category.name }}
       </button>
@@ -26,8 +26,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { defineProps } from 'vue'
-defineProps(['categories'])
+import type { Category } from '@/types/InterfaceTypes.vue'
+const props = defineProps(['categories'])
 const selectedIndex = ref(0)
+const selectedPosition = ref(0)
 
 const emit = defineEmits<{
   (e: 'update:selectedIndex', index: number): void
@@ -35,6 +37,7 @@ const emit = defineEmits<{
 
 const selectOption = (index: number) => {
   selectedIndex.value = index
+  selectedPosition.value = props.categories.findIndex((n: Category) => n.id === selectedIndex.value)
   emit('update:selectedIndex', index)
 }
 </script>

@@ -43,13 +43,13 @@ notes_ns = Namespace("notes", description="Note related operations")
 
 note_model = notes_ns.model('Note', {
     'description': fields.String(required=True),
-    'category': fields.String(required=True),
+    'category': fields.Integer(required=True),
     'tags': fields.List(fields.String, required=False),
     'board_id': fields.Integer(required=True)
 })
 
 category_model = notes_ns.model('CategoryUpdate', {
-    'category': fields.String(required=True, description='New category')
+    'category': fields.Integer(required=True, description='New category')
 })
 
 tags_model = notes_ns.model('TagsUpdate', {
@@ -119,6 +119,7 @@ categories_ns = Namespace(
     "categories", description="Category related operation")
 
 category_model = categories_ns.model('Category', {
+    'id': fields.Integer(required=True, description='Category ID'),
     'name': fields.String(required=True),
     'board_id': fields.Integer(required=True)
 })

@@ -58,7 +58,7 @@ def get_notes(board_id: int) -> tuple[list[dict[str, str]], int]:
     return notes_json, 200
 
 
-def add_note(note_description: str, note_category: str, note_tags: str, note_board_id: int) -> tuple[Optional[dict[str, str]], Optional[dict[str, str]], int]:
+def add_note(note_description: str, note_category: int, note_tags: str, note_board_id: int) -> tuple[Optional[dict[str, str]], Optional[dict[str, str]], int]:
     """Add a new note"""
     with db.get_session() as session:
         try:
@@ -86,7 +86,7 @@ def remove_note(note_id: int) -> tuple[Optional[dict[str, str]], Optional[dict[s
     return {"status": "Success"}, None, 200
 
 
-def modify_note_category(note_id: int, new_category: str) -> tuple[Optional[dict[str, str]], Optional[dict[str, str]], int]:
+def modify_note_category(note_id: int, new_category: int) -> tuple[Optional[dict[str, str]], Optional[dict[str, str]], int]:
     """Modify a note category by id"""
     with db.get_session() as session:
         try:
