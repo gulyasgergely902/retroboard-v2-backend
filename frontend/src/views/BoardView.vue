@@ -1,6 +1,9 @@
 <template>
-  <filter-toggle @update:selectedIndex="handleSelection" class="mb-4" :categories="categories" />
-  <masonry-wall :items="filteredNotes" :ssr-columns="1" :column-width="300" :gap="16" class="p-4">
+  <div class="flex content-center h-12 dark:bg-slate-900 px-3">
+    <filter-toggle @update:selectedCategoryId="handleSelection" class="flex-1" :categories="categories" />
+    <toggle label="Toggle visibility" alignment="left" v-model="visibilityChecked"/>
+  </div>
+  <masonry-wall :items="filteredNotes" :ssr-columns="1" :column-width="300" :gap="16" class="p-4" :class="{'blur-sm': visibilityChecked}">
     <template #default="{ item, index }">
       <div class="bg-sky-500 rounded-xl p-4">
         <span>{{ item.description }}</span>
@@ -14,6 +17,7 @@ import MasonryWall from '@yeger/vue-masonry-wall'
 import { onMounted, ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import FilterToggle from '@/components/FilterToggle.vue'
+import Toggle from '@/components/Toggle.vue'
 
 import type { Note, Category } from '@/types/InterfaceTypes.vue'
 
@@ -26,6 +30,8 @@ const route = useRoute()
 const boardId = route.params.id as string
 
 const selectedCategory = ref<number | null>(null)
+
+const visibilityChecked = ref(false)
 
 onMounted(async () => {
   try {

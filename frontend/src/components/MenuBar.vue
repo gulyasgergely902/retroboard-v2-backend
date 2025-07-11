@@ -9,26 +9,6 @@ import { RouterLink } from 'vue-router'
           >RetroBoard</span
         >
       </RouterLink>
-      <div class="block w-auto" id="navbar-default">
-        <ul
-          class="font-medium flex flex-row p-0 mt-0 rounded-lg space-x-4 bg-white dark:bg-slate-800"
-        >
-          <li>
-            <RouterLink
-              to="/"
-              class="block py-2 text-slate-950 hover:text-sky-500 rounded-sm bg-transparent dark:text-slate-50 transition-colors"
-              >Home</RouterLink
-            >
-          </li>
-          <li>
-            <RouterLink
-              to="/board"
-              class="block py-2 text-slate-950 hover:text-sky-500 rounded-sm bg-transparent dark:text-slate-50 transition-colors"
-              >About</RouterLink
-            >
-          </li>
-        </ul>
-      </div>
     </div>
   </nav>
 </template>

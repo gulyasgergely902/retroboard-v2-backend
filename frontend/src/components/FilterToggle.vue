@@ -1,43 +1,24 @@
 <template>
-  <div class="w-full max-w-md mx-auto">
-    <div class="relative flex bg-gray-200 rounded-full">
-      <!-- Sliding background -->
-      <div
-        class="absolute top-1 bottom-1 left-1 bg-white rounded-full shadow transition-all h-8 duration-300 ease-in-out"
-        :style="{
-          width: `${100 / categories.length}%`,
-          transform: `translateX(${selectedPosition * 100}%)`,
-        }"
-      ></div>
-
-      <button
-        v-for="(category, index) in categories"
-        :key="category.id"
-        class="relative z-10 flex-1 text-center rounded-full h-10 flex items-center justify-center font-semibold transition-colors duration-200"
-        :class="selectedIndex === category.id ? 'text-black' : 'text-gray-500'"
-        @click="selectOption(category.id)"
-      >
-        {{ category.name }}
-      </button>
-    </div>
+  <div class="inline-flex rounded-md">
+    <button v-for="category in categories" type="button" @click="selectOption(category.id)"
+      class="px-4 py-2 text-sm font-medium text-slate-950 bg-sky-100 rounded-xl hover:bg-sky-500 hover:text-slate-950 focus:z-10 focus:ring-2 focus:ring-sky-700 focus:text-sky-700 dark:bg-slate-800 dark:text-sky-50 dark:hover:text-sky-50 dark:hover:bg-sky-700 dark:focus:ring-sky-500 dark:focus:text-white m-1">
+      {{ category.name }}
+    </button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 import { defineProps } from 'vue'
-import type { Category } from '@/types/InterfaceTypes.vue'
-const props = defineProps(['categories'])
-const selectedIndex = ref(0)
-const selectedPosition = ref(0)
+defineProps(['categories'])
+const selectedCategoryId = ref(0)
 
 const emit = defineEmits<{
-  (e: 'update:selectedIndex', index: number): void
+  (e: 'update:selectedCategoryId', index: number): void
 }>()
 
 const selectOption = (index: number) => {
-  selectedIndex.value = index
-  selectedPosition.value = props.categories.findIndex((n: Category) => n.id === selectedIndex.value)
-  emit('update:selectedIndex', index)
+  selectedCategoryId.value = index
+  emit('update:selectedCategoryId', index)
 }
 </script>
